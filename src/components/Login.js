@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const Register = () => {
+const Login = () => {
   return (
     <Box
       sx={{
@@ -14,15 +14,8 @@ const Register = () => {
         '& .MuiTextField-root': { m: 2, width: '25ch' },
       }}
     >
+      <Typography variant="h4">Login Form</Typography>
 
-      <Typography variant='h4'>Register Form</Typography>
-
-      <TextField
-        required
-        id="standard-required"
-        label="Enter your name"
-        variant="filled"
-      />
       <TextField
         required
         id="standard-required"
@@ -36,11 +29,11 @@ const Register = () => {
         type="password"
         variant="filled"
       />
-      <Button variant="contained" >Register</Button>
-      <Typography variant='subtitlé1'>If you have an account.</Typography>
-      <Button href='/login' variant="contained" >Log In</Button>
+      <Button variant="contained">Login</Button>
+      <Typography variant="subtitlé1">If you don't have an account.</Typography>
+      <Button href='/' variant="contained">Reigster</Button>
     </Box>
   );
 };
 
-export default Register;
+export default Login;
