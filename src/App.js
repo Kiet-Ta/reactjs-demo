@@ -4,6 +4,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import List from './components/post/List';
 import Form from './components/post/Form';
+import Detail from './components/post/Detail';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/post/list" element={<List />} />
           <Route path="/post/form" element={<Form />} />
+          <Route path="/post/:id" element={<Detail />} />
         </Routes>
       </div>
     </BrowserRouter>
