@@ -5,6 +5,7 @@ import './App.css';
 import AddPost from './components/AddPost';
 import Post from './components/Post';
 import PostList from './components/PostList';
+import Register from './components/Register';
 
 function App() {
   return (
@@ -14,6 +15,11 @@ function App() {
           ReactJS Demo
         </a>
         <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={'/register'} className="nav-link">
+              Register
+            </Link>
+          </li>
           <li className="nav-item">
             <Link to={'/posts'} className="nav-link">
               List Post
@@ -32,6 +38,7 @@ function App() {
           <Route path="/posts" element={<PostList />} />
           <Route path="/add" element={<AddPost />} />
           <Route path="/posts/:id" element={<Post />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </div>
