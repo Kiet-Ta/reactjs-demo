@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import axiosInstance from '../http-common';
 import PostDataService from '../services/PostService';
 
 const AddPost = () => {
@@ -20,20 +22,22 @@ const AddPost = () => {
       title: post.title,
       content: post.content,
     };
-    
-    PostDataService.create(data)
-    .then((response) => {
-      setPost({
-        id: response.data.id,
-        title: response.data.title,
-        content: response.data.content,
+    axios.get('http://blog-demo.test/sanctum/csrf-cookie').then((response) => {
+      console.log(response);
+      PostDataService.create(data)
+      .then((response) => {
+        setPost({
+          id: response.data.id,
+          title: response.data.title,
+          content: response.data.content,
+        });
+        setSubmitted(true);
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
       });
-      setSubmitted(true);
-      console.log(response.data);
     })
-    .catch((e) => {
-      console.log(e);
-    });
   };
   const newPost = () => {
     setPost(initialPostState);

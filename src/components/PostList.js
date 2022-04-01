@@ -61,10 +61,7 @@ const PostList = () => {
               </li>
             ))}
         </ul>
-        <button
-          className="m-3 btn btn-sm btn-danger"
-          onClick={removeAllPosts}
-        >
+        <button className="m-3 btn btn-sm btn-danger" onClick={removeAllPosts}>
           Remove All
         </button>
       </div>
@@ -86,7 +83,7 @@ const PostList = () => {
             </div>
             <Link
               to={'/posts/' + currentPost.id}
-              className="badge badge-warning"
+              className="btn btn-success"
             >
               Edit
             </Link>

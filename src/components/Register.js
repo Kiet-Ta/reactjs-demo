@@ -1,39 +1,30 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import RegisterDataService from '../services/RegisterService';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthService from '../services/AuthService';
 
 const Register = () => {
-  const initialRegisterState = {
-    id: null,
-    name: '',
-    email: '',
-    password: '',
+  let navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onChangeName = (e) => {
+    const name = e.target.value;
+    setName(name);
+  };
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+  };
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
   };
 
-  const [register, setRegister] = useState(initialRegisterState);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setRegister({ ...register, [name]: value });
-  };
-
-  const saveData = () => {
-    let data = {
-      name: register.name,
-      email: register.email,
-      password: register.password,
-    };
-
-    RegisterDataService.register(data)
+  const handleRegister = (e) => {
+    AuthService.register(name, email, password)
       .then((response) => {
-        setRegister({
-          id: response.data.id,
-          name: response.data.name,
-          email: response.data.email,
-          password: response.data.password,
-        });
-        setSubmitted(true);
+        navigate('/login');
         console.log(response.data);
       })
       .catch((e) => {
@@ -42,59 +33,43 @@ const Register = () => {
   };
 
   return (
-    <div className="submit-form">
-      {submitted ? (
-        <div>
-          <h4>You submitted successfully!</h4>
-          <Link to={'/posts/add'} className="nav-link">
-            <button className="btn btn-success">Add Post</button>
-          </Link>
+    <div className="col-md-12">
+      <div>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            className="form-control"
+            name="name"
+            value={name}
+            onChange={onChangeName}
+          />
         </div>
-      ) : (
-        <div>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              required
-              value={register.name}
-              onChange={handleInputChange}
-              name="name"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              className="form-control"
-              id="email"
-              required
-              value={register.email}
-              onChange={handleInputChange}
-              name="email"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              required
-              value={register.password}
-              onChange={handleInputChange}
-              name="password"
-            />
-          </div>
-          <button onClick={saveData} className="btn btn-success">
-            Register
-          </button>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            className="form-control"
+            name="email"
+            value={email}
+            onChange={onChangeEmail}
+          />
         </div>
-      )}
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            name="password"
+            value={password}
+            onChange={onChangePassword}
+          />
+        </div>
+        <div className="form-group">
+          <button onClick={handleRegister} className="btn btn-primary btn-block">Register</button>
+        </div>
+      </div>
     </div>
   );
 };
-
 export default Register;

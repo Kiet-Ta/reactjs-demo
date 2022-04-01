@@ -1,39 +1,63 @@
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthService from '../services/AuthService';
 
 const Login = () => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-    >
-      <Typography variant="h4">Login Form</Typography>
+  let navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-      <TextField
-        required
-        id="standard-required"
-        label="Enter your email"
-        variant="filled"
-      />
-      <TextField
-        required
-        id="standard-password-input"
-        label="Enter your password"
-        type="password"
-        variant="filled"
-      />
-      <Button variant="contained">Login</Button>
-      <Typography variant="subtitlé1">If you don't have an account.</Typography>
-      <Button href='/' variant="contained">Reigster</Button>
-    </Box>
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+  };
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    AuthService.login(email, password)
+      .then(() => {
+        navigate('/');
+        console.log('Login successfully');
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  return (
+    <div className="col-md-12">
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          type="text"
+          className="form-control"
+          id="email"
+          required
+          value={email}
+          onChange={onChangeEmail}
+          name="email"
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          className="form-control"
+          id="password"
+          required
+          value={password}
+          onChange={onChangePassword}
+          name="password"
+        />
+      </div>
+      <button onClick={handleLogin} className="btn btn-success">
+        Log In
+      </button>
+    </div>
   );
 };
-
 export default Login;
