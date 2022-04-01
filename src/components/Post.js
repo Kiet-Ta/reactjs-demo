@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import PostDataService from '../services/PostService';
 const Post = (props) => {
   const { id } = useParams();
@@ -77,6 +77,9 @@ const Post = (props) => {
               />
             </div>
           </form>
+          <button className="btn btn-danger" onClick={deletePost}>
+            Delete
+          </button>
           <button
             type="submit"
             className="btn btn-success"
