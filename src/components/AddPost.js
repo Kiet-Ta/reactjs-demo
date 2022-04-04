@@ -22,9 +22,7 @@ const AddPost = () => {
       title: post.title,
       content: post.content,
     };
-    axios.get('http://blog-demo.test/sanctum/csrf-cookie').then((response) => {
-      console.log(response);
-      PostDataService.create(data)
+    PostDataService.create(data)
       .then((response) => {
         setPost({
           id: response.data.id,
@@ -37,7 +35,6 @@ const AddPost = () => {
       .catch((e) => {
         console.log(e);
       });
-    })
   };
   const newPost = () => {
     setPost(initialPostState);

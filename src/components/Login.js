@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../services/AuthService';
+import { UserContext } from '../App';
 
 const Login = () => {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   let navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,9 +21,10 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     AuthService.login(email, password)
-      .then(() => {
+      .then((response) => {
+        setCurrentUser(response.user);
         navigate('/');
-        console.log('Login successfully');
+        console.log(response);
       })
       .catch((e) => {
         console.log(e);
