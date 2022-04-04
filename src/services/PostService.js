@@ -8,7 +8,7 @@ const get = (id) => {
   return http.get(`/posts/${id}`, { headers: authHeader() });
 };
 const create = (data) => {
-  return http.post('/posts', data);
+  return http.post('/posts', data, { headers: authHeader() });
 };
 const update = (id, data) => {
   return http.put(`/posts/${id}`, data, { headers: authHeader() });
