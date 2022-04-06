@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://blog-demo.test/api';
+const API_URL = 'https://blog-demo-laravel-api.herokuapp.com/api';
 
 const register = (name, email, password) => {
   return axios.post(API_URL + '/register', {

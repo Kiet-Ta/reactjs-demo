@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://blog-demo.test/api',
+  baseURL: 'https://blog-demo-laravel-api.herokuapp.com/api',
   headers: {
     'Content-type': 'application/json',
   },
